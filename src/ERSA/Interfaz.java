@@ -243,6 +243,35 @@ public class Interfaz extends javax.swing.JFrame {
         String msj = text.getText();//mensaje a envia
         String datos = UsuariO.getText();// 
         UsuarioT.setText(datos +"decifrado: "+msj+"\n\n");
+        
+        byte[] tamtemps = tamprimo.getBytes();
+        String sos = new String(tamtemps);
+        int tamtemp = Integer.parseInt(sos);
+        rsa r = new rsa(tamtemp);
+        r.generarPrimos();
+        r.generarClaves();
+        String pp = r.p.toString();
+        String qq = r.q.toString();
+        String nn = r.n.toString();
+        String phi = r.phi.toString();
+        String eu = r.e.toString();
+        String dd = r.d.toString();
+        
+        int idd = Integer.parseInt(dd);
+        BigInteger bdd = BigInteger.valueOf(idd);
+        
+        int inn = Integer.parseInt(nn);
+        BigInteger bnn = BigInteger.valueOf(idd);
+        
+        String des = text2.getText();
+        byte[] bytesdes = des.getBytes();
+        BigInteger[] msjencriptado = new BigInteger[bytesdes.length];
+        try{
+            String desencpritar = r.desencriptar(msjencriptado, bdd, bnn);
+            UsuarioT.setText("descifrado:" +msjencriptado +"\n\n");
+        }catch(Exception e){
+            System.out.println("Error:" +e);
+        }
 
     }//GEN-LAST:event_Enviar2ActionPerformed
 
